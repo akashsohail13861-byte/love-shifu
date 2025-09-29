@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Magical Message for My Dearest Shifu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #fde2e4, #e4e2fd, #d4f0f0, #fde2e4);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            overflow-x: hidden;
+        }
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .font-pacifico {
+            font-family: 'Pacifico', cursive;
+        }
+        .heart-beat {
+            animation: beat 1.5s infinite ease-in-out;
+            display: inline-block;
+        }
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        .fade-in {
+            animation: fadeIn 2s ease-in-out forwards;
+            opacity: 0;
+        }
+        .fade-in-delay-1 { animation-delay: 0.5s; }
+        .fade-in-delay-2 { animation-delay: 1s; }
+        .fade-in-delay-3 { animation-delay: 1.5s; }
+        .fade-in-delay-4 { animation-delay: 2s; }
+        .fade-in-delay-5 { animation-delay: 2.5s; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .magic-button {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .magic-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 25px rgba(236, 72, 153, 0.5);
+        }
+        
+        .flying-heart {
+            position: absolute;
+            font-size: 24px;
+            color: #ec4899;
+            pointer-events: none;
+            animation: flyUp 4s ease-out forwards;
+            z-index: 100;
+        }
+        
+        @keyframes flyUp {
+            from {
+                opacity: 1;
+                transform: translateY(0) translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(-500px) translateX(var(--x-end));
+            }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-2xl mx-auto p-6 md:p-8 bg-white/90 backdrop-blur-sm rounded-2xl shadow-2xl text-center overflow-hidden">
+        
+        <!-- Header -->
+        <header class="mb-6">
+            <h1 class="font-pacifico text-4xl md:text-5xl text-pink-500 fade-in">For My Dearest Shifu</h1>
+            <p class="text-gray-500 mt-2 fade-in fade-in-delay-1">A little magic from my heart to yours...</p>
+        </header>
+
+        <!-- Main Content: Love & Support -->
+        <main>
+            <div class="space-y-6">
+                <div class="p-4 bg-pink-50 rounded-lg shadow-inner fade-in fade-in-delay-2">
+                    <span class="text-4xl">💌</span>
+                    <h2 class="text-xl font-semibold text-pink-600 mt-2">I Love You Endlessly</h2>
+                    <p class="text-gray-600">More than all the stars in the sky. You are my everything. <span class="heart-beat">❤️</span></p>
+                </div>
+                <div class="p-4 bg-purple-50 rounded-lg shadow-inner fade-in fade-in-delay-3">
+                    <span class="text-4xl">💭</span>
+                    <h2 class="text-xl font-semibold text-purple-600 mt-2">I Miss You Terribly</h2>
+                    <p class="text-gray-600">Every moment feels incomplete without you by my side. I miss your laugh, your voice, your presence.</p>
+                </div>
+                <div class="p-4 bg-rose-50 rounded-lg shadow-inner fade-in fade-in-delay-4">
+                    <span class="text-4xl">🤗</span>
+                    <h2 class="text-xl font-semibold text-rose-600 mt-2">I'm Your Biggest Supporter</h2>
+                    <p class="text-gray-600">Your happiness and well-being mean the world to me. I'm always cheering you on in your studies and in life!</p>
+                </div>
+            </div>
+
+            <!-- Magic Buttons -->
+            <div class="mt-10 pt-6 border-t border-gray-200 fade-in fade-in-delay-5">
+                <p class="text-gray-700 text-lg mb-4">I have a few magical messages for you. Click them!</p>
+                <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <button id="loveButton" class="magic-button bg-pink-500 text-white font-bold py-3 px-6 rounded-full shadow-lg">
+                        ✨ A Sprinkle of Love
+                    </button>
+                    <button id="supportButton" class="magic-button bg-purple-500 text-white font-bold py-3 px-6 rounded-full shadow-lg">
+                        ✨ A Whisper of Support
+                    </button>
+                    <button id="wishButton" class="magic-button bg-rose-500 text-white font-bold py-3 px-6 rounded-full shadow-lg">
+                        ✨ My One Gentle Wish...
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Transition and The Ask (Initially hidden-ish) -->
+            <div id="the-ask" class="mt-12 pt-6 border-t border-dashed border-gray-300 opacity-0 transition-opacity duration-1000">
+                <p class="text-gray-700 text-lg mb-4">But lately, my heart has been a little heavy...</p>
+                <p class="text-gray-600">I'm so incredibly proud of how hard you're working, but I have to be honest... <span class="font-semibold">I'm crying for your time</span>. I yearn for our conversations and the special moments that are just for us.</p>
+                <p class="text-gray-600 mt-2">I know you're busy, and I respect that completely. But I was hoping you could make a little space for me, for us. A little effort, a small conversation... it would feel like sunshine after rain. I want to take care of you, and sometimes, I need you to take care of me too.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for Support -->
+    <div id="supportModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 opacity-0 pointer-events-none">
+        <div class="bg-white rounded-2xl p-8 text-center max-w-sm w-full transform scale-95">
+            <span class="text-7xl">🌟</span>
+            <h3 class="text-2xl font-bold text-purple-600 mt-4">You've Got This!</h3>
+            <p class="text-gray-600 mt-2">Remember how amazing you are. I believe in you and your dreams. Keep shining bright, and know that I'm here for you, always.</p>
+            <button id="closeSupport" class="mt-6 bg-purple-500 text-white font-semibold py-2 px-5 rounded-lg">Thank you!</button>
+        </div>
+    </div>
+
+    <script>
+        const loveButton = document.getElementById('loveButton');
+        const supportButton = document.getElementById('supportButton');
+        const wishButton = document.getElementById('wishButton');
+        const supportModal = document.getElementById('supportModal');
+        const closeSupport = document.getElementById('closeSupport');
+        const theAskSection = document.getElementById('the-ask');
+
+        // Magic Button 1: Sprinkle of Love
+        loveButton.addEventListener('click', () => {
+            for (let i = 0; i < 20; i++) {
+                createHeart();
+            }
+        });
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('flying-heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.setProperty('--x-end', `${(Math.random() - 0.5) * 200}px`);
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 4000);
+        }
+
+        // Magic Button 2: Whisper of Support
+        supportButton.addEventListener('click', () => openModal(supportModal));
+        closeSupport.addEventListener('click', () => closeModal(supportModal));
+
+        // Magic Button 3: The Gentle Wish
+        wishButton.addEventListener('click', () => {
+            theAskSection.style.opacity = '1';
+            theAskSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+
+        // Modal Functions
+        function openModal(modal) {
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.remove('scale-95');
+        }
+
+        function closeModal(modal) {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.add('scale-95');
+        }
+        
+        // Close modal if clicking outside
+        window.addEventListener('click', (event) => {
+            if (event.target === supportModal) closeModal(supportModal);
+        });
+    </script>
+</body>
+</html>
+
